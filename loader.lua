@@ -1,26 +1,30 @@
-local games = {
-    [115915240028498] = "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/I%20Heard%20It%20Too%20Remastered.lua",
-    [126323186948264] = "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/Paradox.lua"
-}
+if game.PlaceId == 115915240028498 then
+    loadstring(game:HttpGet(
+        "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/I%20Heard%20It%20Too%20Remastered"
+    ))()
 
-local url = games[game.PlaceId]
+elseif game.PlaceId == 126323186948264 then
+    local url = "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/Paradox"
 
-if url then
-    local success, result = pcall(function()
+    local success, code = pcall(function()
         return game:HttpGet(url)
     end)
 
-    if success then
-        local func, err = loadstring(result)
-
-        if func then
-            func()
-        else
-            warn("Failed to compile script: " .. tostring(err))
-        end
-    else
-        warn("Failed to download script: " .. tostring(result))
+    if not success then
+        warn("Paradox download failed:", code)
+        return
     end
-else
-    warn("This game is not supported. PlaceId: " .. tostring(game.PlaceId))
+
+    print("Paradox downloaded successfully")
+    print("Code length:", #code)
+
+    local func, err = loadstring(code)
+
+    if not func then
+        warn("Paradox loadstring failed:", err)
+        return
+    end
+
+    print("Paradox loaded successfully")
+    func()
 end
