@@ -1,28 +1,13 @@
-local games = {
-    [115915240028498] = "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/I%20Heard%20It%20Too%20Remastered.lua",
-    [126323186948264] = "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/Paradox.lua"
-}
+if game.PlaceId == 115915240028498 then
+    loadstring(game:HttpGet(
+        "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/I%20Heard%20It%20Too%20Remastered"
+    ))()
 
-local url = games[game.PlaceId]
+elseif game.PlaceId == 1234567890 then
+    loadstring(game:HttpGet(
+        "https://example.com/your-second-script.lua"
+    ))()
 
-if url then
-    local success, code = pcall(function()
-        return game:HttpGet(url)
-    end)
-
-    if not success then
-        warn("HTTP error:", code)
-        return
-    end
-
-    local func, err = loadstring(code)
-
-    if not func then
-        warn("Loadstring error:", err)
-        return
-    end
-
-    func()
 else
-    warn("This game is not supported. PlaceId:", game.PlaceId)
+    warn("This game is not supported.")
 end
