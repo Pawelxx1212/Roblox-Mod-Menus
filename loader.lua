@@ -1,40 +1,34 @@
-local placeId = game.PlaceId
+local placeId = tostring(game.PlaceId)
 
-if placeId == 115915240028498 then
+print("Detected PlaceId:", placeId)
 
-    print("Detected: I Heard It Too")
+if placeId == "115915240028498" then
+    print("Detected I Heard It Too")
 
-    local source = game:HttpGet(
-        "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/I%20Heard%20It%20Too%20Remastered"
-    )
+    local success, err = pcall(function()
+        loadstring(game:HttpGet(
+            "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/I%20Heard%20It%20Too%20Remastered"
+        ))()
+    end)
 
-    local scriptFunction = loadstring(source)
-
-    if not scriptFunction then
-        warn("Failed to compile I Heard It Too script")
-        return
+    if not success then
+        warn("I Heard It Too error:", err)
     end
 
-    scriptFunction()
+elseif placeId == "126323186948264" then
+    print("Detected Paradox")
 
-elseif placeId == 126323186948264 then
+    local success, err = pcall(function()
+        loadstring(game:HttpGet(
+            "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/Paradox"
+        ))()
+    end)
 
-    print("Detected: Paradox")
-
-    local source = game:HttpGet(
-        "https://raw.githubusercontent.com/Pawelxx1212/Roblox-Mod-Menus/refs/heads/main/Games/Paradox"
-    )
-
-    local scriptFunction = loadstring(source)
-
-    if not scriptFunction then
-        warn("Failed to compile Paradox script")
-        return
+    if not success then
+        warn("Paradox error:", err)
     end
-
-    scriptFunction()
 
 else
-    warn("This game is not supported.")
-    warn("PlaceId:", placeId)
+    warn("This game is not supported!")
+    warn("PlaceId detected:", placeId)
 end
